@@ -1,0 +1,13 @@
+{
+    "artifactKey": "VirtoCommerce.AiHelper",
+    "deployRepo": "vc-deploy-marketplace",
+    "cmPath": "backend/packages.json",
+    "dev": {
+        "deployAppName": "vcmp-dev",
+        "deployBranch": "vcmp-dev",
+        "environmentId" : "dev",
+        "environmentName" : "Development",
+        "environmentType" : "staging",
+        "environmentUrl" : "https://vcmp-dev.govirto.com/"
+    }
+}
