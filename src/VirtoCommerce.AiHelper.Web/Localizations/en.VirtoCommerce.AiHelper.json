@@ -1,0 +1,41 @@
+{
+  "aihelper": {
+    "blades": {
+      "translate": {
+        "title": "AI translate"
+      }
+    }
+  },
+  "permissions": {
+    "ai-helper:access": "Open AiHelper menu",
+    "ai-helper:create": "Create AiHelper related data",
+    "ai-helper:read": "View AiHelper related data",
+    "ai-helper:update": "Update AiHelper related data",
+    "ai-helper:delete": "Delete AiHelper related data"
+  },
+  "settings": {
+    "AiHelper": {
+      "Enabled": {
+        "title": "AiHelper Enabled",
+        "description": "AiHelper Enabled setting (temporary ignore)"
+      },
+      "Provider": {
+        "title": "AI Provider",
+        "description": "Select AI service provider to process your prompts (temporary only OpenAI)"
+      },
+      "OpenAiModel": {
+        "title": "OpenAI model",
+        "description": "Select OpenAI model name"
+      },
+      "OpenAiKey": {
+        "title": "OpenAI API secret key",
+        "description": "(temporary setting)"
+      },
+      "OpenAiPromptTranslate": {
+        "title": "Translate prompt",
+        "description": "Use \"{locale}\" and \"{text}\" as parameter for locale name and text to translate"
+      }
+
+    }
+  }
+}
