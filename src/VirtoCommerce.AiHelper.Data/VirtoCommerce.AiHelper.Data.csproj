@@ -14,7 +14,7 @@
     <PackageReference Include="OpenAI" Version="2.5.0" />
     <PackageReference Include="System.ClientModel" Version="1.7.0" />
     <PackageReference Include="System.Memory.Data" Version="8.0.1" />
-    <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.876.0" />
+    <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.906.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Core\VirtoCommerce.AiHelper.Core.csproj" />
