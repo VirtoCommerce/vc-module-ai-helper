@@ -17,9 +17,6 @@
     <None Remove="dist\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.ClientModel" Version="1.7.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Core\VirtoCommerce.AiHelper.Core.csproj" />
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data\VirtoCommerce.AiHelper.Data.csproj" />
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data.MySql\VirtoCommerce.AiHelper.Data.MySql.csproj" />
