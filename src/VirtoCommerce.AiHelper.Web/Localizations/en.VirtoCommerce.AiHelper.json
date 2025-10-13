@@ -19,23 +19,10 @@
         "title": "AiHelper Enabled",
         "description": "AiHelper Enabled setting (temporary ignore)"
       },
-      "Provider": {
-        "title": "AI Provider",
-        "description": "Select AI service provider to process your prompts (temporary only OpenAI)"
-      },
-      "OpenAiModel": {
-        "title": "OpenAI model",
-        "description": "Select OpenAI model name"
-      },
-      "OpenAiKey": {
-        "title": "OpenAI API secret key",
-        "description": "(temporary setting)"
-      },
-      "OpenAiPromptTranslate": {
-        "title": "Translate prompt",
-        "description": "Use \"{locale}\" and \"{text}\" as parameter for locale name and text to translate"
+      "TranslationProvider": {
+        "title": "Translation service provider",
+        "description": "Select AI service to translate"
       }
-
     }
   }
 }

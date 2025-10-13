@@ -1,21 +1,14 @@
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtoCommerce.AiHelper.Core;
 using VirtoCommerce.AiHelper.Core.Services;
 using VirtoCommerce.AiHelper.Data;
-using VirtoCommerce.AiHelper.Data.MySql;
-using VirtoCommerce.AiHelper.Data.PostgreSql;
-using VirtoCommerce.AiHelper.Data.Repositories;
 using VirtoCommerce.AiHelper.Data.Services;
-using VirtoCommerce.AiHelper.Data.SqlServer;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
-using VirtoCommerce.Platform.Data.MySql.Extensions;
-using VirtoCommerce.Platform.Data.PostgreSql.Extensions;
-using VirtoCommerce.Platform.Data.SqlServer.Extensions;
 
 namespace VirtoCommerce.AiHelper.Web;
 
@@ -26,31 +19,12 @@ public class Module : IModule, IHasConfiguration
 
     public void Initialize(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddDbContext<AiHelperDbContext>(options =>
-        {
-            var databaseProvider = Configuration.GetValue("DatabaseProvider", "SqlServer");
-            var connectionString = Configuration.GetConnectionString(ModuleInfo.Id) ?? Configuration.GetConnectionString("VirtoCommerce");
 
-            switch (databaseProvider)
-            {
-                case "MySql":
-                    options.UseMySqlDatabase(connectionString, typeof(MySqlDataAssemblyMarker), Configuration);
-                    break;
-                case "PostgreSql":
-                    options.UsePostgreSqlDatabase(connectionString, typeof(PostgreSqlDataAssemblyMarker), Configuration);
-                    break;
-                default:
-                    options.UseSqlServerDatabase(connectionString, typeof(SqlServerDataAssemblyMarker), Configuration);
-                    break;
-            }
-        });
+        serviceCollection.AddSingleton<DummyAiProvider>();
 
-        // Override models
-        //AbstractTypeFactory<OriginalModel>.OverrideType<OriginalModel, ExtendedModel>().MapToType<ExtendedEntity>();
-        //AbstractTypeFactory<OriginalEntity>.OverrideType<OriginalEntity, ExtendedEntity>();
-
-        // Register services
-        serviceCollection.AddTransient<IAiTranslationService, AiTranslationService>();
+        serviceCollection.AddSingleton<AiProviderRegistrar>();
+        serviceCollection.AddSingleton<IAiProviderFactory>(serviceProvider => serviceProvider.GetService<AiProviderRegistrar>());
+        serviceCollection.AddSingleton<IAiProviderRegistrar>(serviceProvider => serviceProvider.GetService<AiProviderRegistrar>());
 
         serviceCollection.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<Anchor>());
 
@@ -68,10 +42,12 @@ public class Module : IModule, IHasConfiguration
         var permissionsRegistrar = serviceProvider.GetRequiredService<IPermissionsRegistrar>();
         permissionsRegistrar.RegisterPermissions(ModuleInfo.Id, "AiHelper", ModuleConstants.Security.Permissions.AllPermissions);
 
-        // Apply migrations
-        using var serviceScope = serviceProvider.CreateScope();
-        using var dbContext = serviceScope.ServiceProvider.GetRequiredService<AiHelperDbContext>();
-        dbContext.Database.Migrate();
+        var aiProviderRegistrar = appBuilder.ApplicationServices.GetService<IAiProviderRegistrar>();
+        aiProviderRegistrar.Register<DummyAiProvider>(() => appBuilder.ApplicationServices.GetService<DummyAiProvider>());
+
+        var settingsManager = appBuilder.ApplicationServices.GetRequiredService<ISettingsManager>();
+        ModuleConstants.Settings.General.AiHelperTranslationProvider.AllowedValues.Append(aiProviderRegistrar.GetAiProvidersByService<IAiTranslationService>().Select(x => x.ProviderType).ToArray()).Distinct();
+
     }
 
     public void Uninstall()

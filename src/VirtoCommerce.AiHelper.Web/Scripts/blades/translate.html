@@ -35,6 +35,14 @@
               </textarea>
             </div>
           </div>
+          <div class="form-group list __info" ng-if="!blade.isSuccess">
+            <label class="form-label">Error</label>
+            <div class="form-input">
+              <textarea ng-model="blade.errorMessage"
+                        type="text">
+              </textarea>
+            </div>
+          </div>
         </fieldset>
       </form>
     </div>

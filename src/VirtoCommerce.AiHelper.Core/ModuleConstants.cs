@@ -38,48 +38,22 @@ public static class ModuleConstants
                 DefaultValue = true,
             };
 
-            public static SettingDescriptor AiHelperProvider { get; } = new()
+            public static SettingDescriptor AiHelperTranslationProvider { get; } = new()
             {
-                Name = "AiHelper.Provider",
+                Name = "AiHelper.TranslationProvider",
                 GroupName = "AiHelper|General",
                 ValueType = SettingValueType.ShortText,
-                AllowedValues = ["OpenAI"],
-                DefaultValue = "OpenAI",
+                AllowedValues = [],//["OpenAI"],
+                //DefaultValue = "OpenAI",
             };
 
-            public static SettingDescriptor AiHelperOpenAiModel { get; } = new()
-            {
-                Name = "AiHelper.OpenAiModel",
-                GroupName = "AiHelper|OpenAI",
-                ValueType = SettingValueType.ShortText,
-                AllowedValues = ["gpt-5", "gpt-5-mini", "gpt-5-nano"],
-                DefaultValue = "gpt-5-nano",
-            };
-
-            public static SettingDescriptor AiHelperOpenAiKey { get; } = new()
-            {
-                Name = "AiHelper.OpenAiKey",
-                GroupName = "AiHelper|OpenAI",
-                ValueType = SettingValueType.SecureString,
-            };
-
-            public static SettingDescriptor AiHelperOpenAiPromptTranslate { get; } = new()
-            {
-                Name = "AiHelper.OpenAiPromptTranslate",
-                GroupName = "AiHelper|Prompts",
-                ValueType = SettingValueType.LongText,
-                DefaultValue = "Translate to {locale} the text, preserve HTML or Markdown markups: {text}",
-            };
 
             public static IEnumerable<SettingDescriptor> AllGeneralSettings
             {
                 get
                 {
                     yield return AiHelperEnabled;
-                    yield return AiHelperProvider;
-                    yield return AiHelperOpenAiModel;
-                    yield return AiHelperOpenAiKey;
-                    yield return AiHelperOpenAiPromptTranslate;
+                    yield return AiHelperTranslationProvider;
                 }
             }
         }

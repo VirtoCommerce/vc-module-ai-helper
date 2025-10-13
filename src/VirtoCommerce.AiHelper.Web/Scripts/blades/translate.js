@@ -3,6 +3,7 @@ angular.module('virtoCommerce.AiHelper')
         function ($scope, aiApi) {
             var blade = $scope.blade;
             blade.title = 'aihelper.blades.translate.title';
+            blade.isSuccess = true;
             blade.languages = ['de-DE', 'fr-FR', 'ar-AR', 'ru-RU'];
 
             blade.refresh = function () {
@@ -16,6 +17,8 @@ angular.module('virtoCommerce.AiHelper')
                     targetLanguage: blade.selectedLanguage
                 }, function (data) {
                     blade.resultText = data.result;
+                    blade.isSuccess = data.isSuccess;
+                    blade.errorMessage = data.errorMessage;
                     blade.isLoading = false;
                 });
             }
