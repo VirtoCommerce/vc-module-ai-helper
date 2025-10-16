@@ -16,7 +16,7 @@ angular.module('virtoCommerce.AiHelper')
                     text: blade.sourceText,
                     targetLanguage: blade.selectedLanguage
                 }, function (data) {
-                    blade.resultText = data.result;
+                    blade.resultText = data.result.toString();
                     blade.isSuccess = data.isSuccess;
                     blade.errorMessage = data.errorMessage;
                     blade.isLoading = false;

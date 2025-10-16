@@ -38,9 +38,9 @@ public static class ModuleConstants
                 DefaultValue = true,
             };
 
-            public static SettingDescriptor AiHelperTranslationProvider { get; } = new()
+            public static SettingDescriptor AiHelperTextGenerationProvider { get; } = new()
             {
-                Name = "AiHelper.TranslationProvider",
+                Name = "AiHelper.TextGenerationProvider",
                 GroupName = "AiHelper|General",
                 ValueType = SettingValueType.ShortText,
                 AllowedValues = [],//["OpenAI"],
@@ -53,7 +53,7 @@ public static class ModuleConstants
                 get
                 {
                     yield return AiHelperEnabled;
-                    yield return AiHelperTranslationProvider;
+                    yield return AiHelperTextGenerationProvider;
                 }
             }
         }
@@ -65,5 +65,11 @@ public static class ModuleConstants
                 return General.AllGeneralSettings;
             }
         }
+    }
+
+    public static class DefaultPrompts
+    {
+        public const string Translation = "Translate to {locale} the text, preserve HTML or Markdown markups: {text}";
+        public const string ProductDescriptionGeneration = "Generate pretty seo-friendly description in {locale} language (maximum 1000 words, use only HTML tags if you need) for marketplace product: {product}";
     }
 }

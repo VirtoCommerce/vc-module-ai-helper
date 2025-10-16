@@ -19,9 +19,9 @@
         "title": "AiHelper Enabled",
         "description": "AiHelper Enabled setting (temporary ignore)"
       },
-      "TranslationProvider": {
-        "title": "Translation service provider",
-        "description": "Select AI service to translate"
+      "TextGenerationProvider": {
+        "title": "Text generation service provider",
+        "description": "Select AI service to generate text"
       }
     }
   }

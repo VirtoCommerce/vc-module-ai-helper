@@ -28,4 +28,14 @@ public class AiHelperController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost]
+    [Route("generate/description")]
+    [Authorize(Permissions.Read)]
+    public async Task<ActionResult<AiRequestResult>> GenerateDescription([FromBody] GenerateDescriptionCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        return Ok(result);
+    }
 }

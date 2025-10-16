@@ -7,13 +7,13 @@ using VirtoCommerce.AiHelper.Core.Services;
 using VirtoCommerce.Platform.Core.Settings;
 using static VirtoCommerce.AiHelper.Core.ModuleConstants;
 
-namespace VirtoCommerce.AiHelper.Data.Commands;
-public class TranstlateCommandHandler : ICommandHandler<TranstlateCommand, AiRequestResult>
+namespace VirtoCommerce.AiHelper.Data.Commands.GenerateDescription;
+public class GenerateDescriptionCommandHandler : ICommandHandler<GenerateDescriptionCommand, AiRequestResult>
 {
     private readonly ISettingsManager _settingsManager;
     private readonly IAiProviderFactory _aiProviderFactory;
 
-    public TranstlateCommandHandler(
+    public GenerateDescriptionCommandHandler(
         ISettingsManager settingsManager,
         IAiProviderFactory aiProviderFactory
         )
@@ -22,7 +22,7 @@ public class TranstlateCommandHandler : ICommandHandler<TranstlateCommand, AiReq
         _aiProviderFactory = aiProviderFactory;
     }
 
-    public virtual async Task<AiRequestResult> Handle(TranstlateCommand request, CancellationToken cancellationToken)
+    public virtual async Task<AiRequestResult> Handle(GenerateDescriptionCommand request, CancellationToken cancellationToken)
     {
         var textGenerationProviderName = await _settingsManager.GetValueAsync<string>(Settings.General.AiHelperTextGenerationProvider);
         var result = new AiRequestResult();
@@ -32,8 +32,8 @@ public class TranstlateCommandHandler : ICommandHandler<TranstlateCommand, AiReq
             var textGenerationProvider = _aiProviderFactory.Create(textGenerationProviderName);
             var textGenerationService = textGenerationProvider.GetService<IAiTextGenerationService>();
 
-            var prompt = await textGenerationService.GetTranslationPrompt();
-            prompt = prompt.Replace("{locale}", request.TargetLanguage).Replace("{text}", request.Text);
+            var prompt = await textGenerationService.GetProductDescriptionGenerationPrompt();
+            prompt = prompt.Replace("{locale}", request.TargetLanguage).Replace("{product}", request.JsonProduct);
             result.Result = await textGenerationService.GenerateTextAsync(prompt);
             result.IsSuccess = true;
         }
@@ -43,5 +43,6 @@ public class TranstlateCommandHandler : ICommandHandler<TranstlateCommand, AiReq
         }
 
         return result;
+
     }
 }

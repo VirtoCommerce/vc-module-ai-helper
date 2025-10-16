@@ -46,7 +46,9 @@ public class Module : IModule, IHasConfiguration
         aiProviderRegistrar.Register<DummyAiProvider>(() => appBuilder.ApplicationServices.GetService<DummyAiProvider>());
 
         var settingsManager = appBuilder.ApplicationServices.GetRequiredService<ISettingsManager>();
-        ModuleConstants.Settings.General.AiHelperTranslationProvider.AllowedValues.Append(aiProviderRegistrar.GetAiProvidersByService<IAiTranslationService>().Select(x => x.ProviderType).ToArray()).Distinct();
+        ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues =
+            ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues
+            .Concat(aiProviderRegistrar.GetAiProvidersByService<IAiTextGenerationService>().Select(x => x.ProviderType).ToArray()).Distinct().ToArray();
 
     }
 
