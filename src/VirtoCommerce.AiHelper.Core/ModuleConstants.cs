@@ -43,10 +43,16 @@ public static class ModuleConstants
                 Name = "AiHelper.TextGenerationProvider",
                 GroupName = "AiHelper|General",
                 ValueType = SettingValueType.ShortText,
-                AllowedValues = [],//["OpenAI"],
-                //DefaultValue = "OpenAI",
+                AllowedValues = [],
             };
 
+            public static SettingDescriptor AiHelperImageRecognitionProvider { get; } = new()
+            {
+                Name = "AiHelper.ImageRecognitionProvider",
+                GroupName = "AiHelper|General",
+                ValueType = SettingValueType.ShortText,
+                AllowedValues = [],
+            };
 
             public static IEnumerable<SettingDescriptor> AllGeneralSettings
             {
@@ -54,6 +60,7 @@ public static class ModuleConstants
                 {
                     yield return AiHelperEnabled;
                     yield return AiHelperTextGenerationProvider;
+                    yield return AiHelperImageRecognitionProvider;
                 }
             }
         }
@@ -71,5 +78,6 @@ public static class ModuleConstants
     {
         public const string Translation = "Translate to {locale} the text, preserve HTML or Markdown markups: {text}";
         public const string ProductDescriptionGeneration = "Generate pretty seo-friendly description in {locale} language (maximum 1000 words, use only HTML tags if you need) for marketplace product: {product}";
+        public const string ImageRecognition = "Generate pretty seo-friendly description in {locale} language (maximum 1000 words, use only HTML tags if you need) for marketplace product. Product name is {product.name}";
     }
 }

@@ -22,6 +22,10 @@
       "TextGenerationProvider": {
         "title": "Text generation service provider",
         "description": "Select AI service to generate text"
+      },
+      "ImageRecognitionProvider": {
+        "title": "Image recognition service provider",
+        "description": "Select AI service to recognize images"
       }
     }
   }
