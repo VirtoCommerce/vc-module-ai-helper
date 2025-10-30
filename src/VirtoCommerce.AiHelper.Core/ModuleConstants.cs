@@ -54,6 +54,14 @@ public static class ModuleConstants
                 AllowedValues = [],
             };
 
+            public static SettingDescriptor AiHelperImageGenerationProvider { get; } = new()
+            {
+                Name = "AiHelper.ImageGenerationProvider",
+                GroupName = "AiHelper|General",
+                ValueType = SettingValueType.ShortText,
+                AllowedValues = [],
+            };
+
             public static IEnumerable<SettingDescriptor> AllGeneralSettings
             {
                 get
@@ -61,6 +69,7 @@ public static class ModuleConstants
                     yield return AiHelperEnabled;
                     yield return AiHelperTextGenerationProvider;
                     yield return AiHelperImageRecognitionProvider;
+                    yield return AiHelperImageGenerationProvider;
                 }
             }
         }
@@ -79,5 +88,7 @@ public static class ModuleConstants
         public const string Translation = "Translate to {locale} the text, preserve HTML or Markdown markups: {text}";
         public const string ProductDescriptionGeneration = "Generate pretty seo-friendly description in {locale} language (maximum 1000 words, use only HTML tags if you need) for marketplace product: {product}";
         public const string ImageRecognition = "Generate pretty seo-friendly description in {locale} language (maximum 1000 words, use only HTML tags if you need) for marketplace product. Product name is {product.name}";
+        public const string FillProperties = "Using proposed images you need fill the properties of product {product.name}. Look at json template and fill field 'value' in every paragraph. You should use only values from list 'availableValues' if it fill for the property, otherwise use the most suitable in you opinion. Any property may have more than one value from different images, if property has 'isMultivalue' you may fill multiple answer comma separated, otherwise single only. Return answer in json format with keys and values in order as template. Answer in English. Json template is: {jsonTemplate}";
+        public const string ProductImageGeneration = "Generate pretty photo-realistic image for marketplace product card. Product name is {product.name}, product description is {product.description}";
     }
 }

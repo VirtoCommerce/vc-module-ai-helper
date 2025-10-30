@@ -7,4 +7,5 @@ public interface IAiImageRecognitionService : IAiTask
 {
     Task<AiRequestResult> RecognizeImageAsync(string prompt, string[] images, string context = null);
     Task<string> GetRecognitionPrompt() => Task.FromResult(DefaultPrompts.ImageRecognition);
+    Task<string> GetFillPropertiesPrompt() => Task.FromResult(DefaultPrompts.FillProperties);
 }

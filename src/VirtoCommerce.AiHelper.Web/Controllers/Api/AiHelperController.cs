@@ -38,4 +38,24 @@ public class AiHelperController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost]
+    [Route("generate/productimage")]
+    [Authorize(Permissions.Read)]
+    public async Task<ActionResult<AiRequestResult>> GenerateProductImage([FromBody] GenerateProductImageCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        return Ok(result);
+    }
+
+    [HttpPost]
+    [Route("generate/properties")]
+    [Authorize(Permissions.Read)]
+    public async Task<ActionResult<AiRequestResult>> GenerateProperties([FromBody] GeneratePropertiesCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        return Ok(result);
+    }
 }

@@ -26,6 +26,10 @@
       "ImageRecognitionProvider": {
         "title": "Image recognition service provider",
         "description": "Select AI service to recognize images"
+      },
+      "ImageGenerationProvider": {
+        "title": "Image generation service provider",
+        "description": "Select AI service to generate images"
       }
     }
   }
