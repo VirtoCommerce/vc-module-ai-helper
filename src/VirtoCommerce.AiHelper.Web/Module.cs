@@ -1,14 +1,22 @@
-using System.Linq;
+using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtoCommerce.AiHelper.Core;
 using VirtoCommerce.AiHelper.Core.Services;
 using VirtoCommerce.AiHelper.Data;
+using VirtoCommerce.AiHelper.Data.MySql;
+using VirtoCommerce.AiHelper.Data.PostgreSql;
+using VirtoCommerce.AiHelper.Data.Repositories;
 using VirtoCommerce.AiHelper.Data.Services;
+using VirtoCommerce.AiHelper.Data.SqlServer;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
+using VirtoCommerce.Platform.Data.MySql.Extensions;
+using VirtoCommerce.Platform.Data.PostgreSql.Extensions;
+using VirtoCommerce.Platform.Data.SqlServer.Extensions;
 
 namespace VirtoCommerce.AiHelper.Web;
 
@@ -19,6 +27,31 @@ public class Module : IModule, IHasConfiguration
 
     public void Initialize(IServiceCollection serviceCollection)
     {
+
+        serviceCollection.AddDbContext<AiHelperDbContext>(options =>
+        {
+            var databaseProvider = Configuration.GetValue("DatabaseProvider", "SqlServer");
+            var connectionString = Configuration.GetConnectionString(ModuleInfo.Id) ?? Configuration.GetConnectionString("VirtoCommerce");
+
+            switch (databaseProvider)
+            {
+                case "MySql":
+                    options.UseMySqlDatabase(connectionString, typeof(MySqlDataAssemblyMarker), Configuration);
+                    break;
+                case "PostgreSql":
+                    options.UsePostgreSqlDatabase(connectionString, typeof(PostgreSqlDataAssemblyMarker), Configuration);
+                    break;
+                default:
+                    options.UseSqlServerDatabase(connectionString, typeof(SqlServerDataAssemblyMarker), Configuration);
+                    break;
+            }
+        });
+
+        serviceCollection.AddTransient<IAiHelperRepository, AiHelperRepository>();
+        serviceCollection.AddTransient<Func<IAiHelperRepository>>(provider => () => provider.CreateScope().ServiceProvider.GetRequiredService<IAiHelperRepository>());
+
+        serviceCollection.AddTransient<IAiRequestLogSearchService, AiRequestLogSearchService>();
+        serviceCollection.AddTransient<IAiRequestLogService, AiRequestLogService>();
 
         serviceCollection.AddSingleton<DummyAiProvider>();
 
@@ -45,11 +78,15 @@ public class Module : IModule, IHasConfiguration
         var aiProviderRegistrar = appBuilder.ApplicationServices.GetService<IAiProviderRegistrar>();
         aiProviderRegistrar.Register<DummyAiProvider>(() => appBuilder.ApplicationServices.GetService<DummyAiProvider>());
 
-        var settingsManager = appBuilder.ApplicationServices.GetRequiredService<ISettingsManager>();
-        ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues =
-            ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues
-            .Concat(aiProviderRegistrar.GetAiProvidersByService<IAiTextGenerationService>().Select(x => x.ProviderType).ToArray()).Distinct().ToArray();
+        //var settingsManager = appBuilder.ApplicationServices.GetRequiredService<ISettingsManager>();
+        //ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues =
+        //    ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues
+        //    .Concat(aiProviderRegistrar.GetAiProvidersByService<IAiTextGenerationService>().Select(x => x.ProviderType).ToArray()).Distinct().ToArray();
 
+        // Apply migrations
+        using var serviceScope = serviceProvider.CreateScope();
+        using var dbContext = serviceScope.ServiceProvider.GetRequiredService<AiHelperDbContext>();
+        dbContext.Database.Migrate();
     }
 
     public void Uninstall()

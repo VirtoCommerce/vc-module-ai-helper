@@ -17,7 +17,11 @@
     "AiHelper": {
       "Enabled": {
         "title": "AiHelper Enabled",
-        "description": "AiHelper Enabled setting (temporary ignore)"
+        "description": "AiHelper Enabled setting"
+      },
+      "LogLevel": {
+        "title": "AiHelper logging lLevel",
+        "description": "Set request history logging level"
       },
       "TextGenerationProvider": {
         "title": "Text generation service provider",

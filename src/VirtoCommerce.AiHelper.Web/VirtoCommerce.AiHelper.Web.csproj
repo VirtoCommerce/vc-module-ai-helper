@@ -18,6 +18,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Core\VirtoCommerce.AiHelper.Core.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.AiHelper.Data.MySql\VirtoCommerce.AiHelper.Data.MySql.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.AiHelper.Data.PostgreSql\VirtoCommerce.AiHelper.Data.PostgreSql.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.AiHelper.Data.SqlServer\VirtoCommerce.AiHelper.Data.SqlServer.csproj" />
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data\VirtoCommerce.AiHelper.Data.csproj" />
   </ItemGroup>
 </Project>

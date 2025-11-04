@@ -38,6 +38,15 @@ public static class ModuleConstants
                 DefaultValue = true,
             };
 
+            public static SettingDescriptor AiHelperLogLevel { get; } = new()
+            {
+                Name = "AiHelper.LogLevel",
+                GroupName = "AiHelper|General",
+                ValueType = SettingValueType.ShortText,
+                AllowedValues = ["None", "Minimal", "Normal", "Verbose"],
+                DefaultValue = "Minimal",
+            };
+
             public static SettingDescriptor AiHelperTextGenerationProvider { get; } = new()
             {
                 Name = "AiHelper.TextGenerationProvider",
@@ -67,6 +76,7 @@ public static class ModuleConstants
                 get
                 {
                     yield return AiHelperEnabled;
+                    yield return AiHelperLogLevel;
                     yield return AiHelperTextGenerationProvider;
                     yield return AiHelperImageRecognitionProvider;
                     yield return AiHelperImageGenerationProvider;
