@@ -8,6 +8,7 @@ public class SearchAiRequestLogQuery : AiRequestLogSearchCriteria, IQuery<AiRequ
     {
         var criteria = ExType<AiRequestLogSearchCriteria>.New();
 
+        criteria.ResponseGroup = ResponseGroup;
         criteria.ObjectIds = ObjectIds;
         criteria.Take = Take;
         criteria.Skip = Skip;
