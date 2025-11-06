@@ -4,13 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtoCommerce.AiHelper.Core;
+using VirtoCommerce.AiHelper.Core.Events;
 using VirtoCommerce.AiHelper.Core.Services;
 using VirtoCommerce.AiHelper.Data;
+using VirtoCommerce.AiHelper.Data.Handlers;
 using VirtoCommerce.AiHelper.Data.MySql;
 using VirtoCommerce.AiHelper.Data.PostgreSql;
 using VirtoCommerce.AiHelper.Data.Repositories;
 using VirtoCommerce.AiHelper.Data.Services;
 using VirtoCommerce.AiHelper.Data.SqlServer;
+using VirtoCommerce.Platform.Core.Events;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
@@ -59,6 +62,9 @@ public class Module : IModule, IHasConfiguration
         serviceCollection.AddSingleton<IAiProviderFactory>(serviceProvider => serviceProvider.GetService<AiProviderRegistrar>());
         serviceCollection.AddSingleton<IAiProviderRegistrar>(serviceProvider => serviceProvider.GetService<AiProviderRegistrar>());
 
+        serviceCollection.AddTransient<AiHelperCallEvent>();
+        serviceCollection.AddTransient<AiHelperCallEventHandler>();
+
         serviceCollection.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<Anchor>());
 
     }
@@ -82,6 +88,8 @@ public class Module : IModule, IHasConfiguration
         //ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues =
         //    ModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues
         //    .Concat(aiProviderRegistrar.GetAiProvidersByService<IAiTextGenerationService>().Select(x => x.ProviderType).ToArray()).Distinct().ToArray();
+
+        appBuilder.RegisterEventHandler<AiHelperCallEvent, AiHelperCallEventHandler>();
 
         // Apply migrations
         using var serviceScope = serviceProvider.CreateScope();

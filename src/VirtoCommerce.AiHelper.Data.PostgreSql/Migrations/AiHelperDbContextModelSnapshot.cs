@@ -40,6 +40,12 @@ namespace VirtoCommerce.AiHelper.Data.PostgreSql.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
+                    b.Property<string>("ErrorText")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsSuccess")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Model")
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
@@ -60,6 +66,9 @@ namespace VirtoCommerce.AiHelper.Data.PostgreSql.Migrations
 
                     b.Property<string>("RequestContext")
                         .HasColumnType("text");
+
+                    b.Property<int>("RequestDuration")
+                        .HasColumnType("integer");
 
                     b.Property<string>("RequestType")
                         .HasMaxLength(128)

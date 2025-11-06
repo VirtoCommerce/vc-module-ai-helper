@@ -40,6 +40,12 @@ namespace VirtoCommerce.AiHelper.Data.MySql.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("varchar(128)");
 
+                    b.Property<string>("ErrorText")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsSuccess")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Model")
                         .HasMaxLength(128)
                         .HasColumnType("varchar(128)");
@@ -60,6 +66,9 @@ namespace VirtoCommerce.AiHelper.Data.MySql.Migrations
 
                     b.Property<string>("RequestContext")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("RequestDuration")
+                        .HasColumnType("int");
 
                     b.Property<string>("RequestType")
                         .HasMaxLength(128)

@@ -11,10 +11,13 @@ public class AiRequestLog : AuditableEntity, ICloneable
 
     public string UserId { get; set; }
     public string EntityId { get; set; }
+    public int RequestDuration { get; set; }
+    public bool IsSuccess { get; set; }
 
     public string RequestContext { get; set; }
     public string Prompt { get; set; }
     public string Response { get; set; }
+    public string ErrorText { get; set; }
 
     public object Clone()
     {

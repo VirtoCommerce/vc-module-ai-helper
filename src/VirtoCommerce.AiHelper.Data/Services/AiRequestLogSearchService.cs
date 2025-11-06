@@ -60,16 +60,15 @@ public class AiRequestLogSearchService : SearchService<AiRequestLogSearchCriteri
     protected override Task<AiRequestLogSearchResult> ProcessSearchResultAsync(AiRequestLogSearchResult result, AiRequestLogSearchCriteria criteria)
     {
         var respGroupEnum = EnumUtility.SafeParseFlags(criteria.ResponseGroup, AiRequestLogResponseGroup.None);
-        var needCleanRequest = !respGroupEnum.HasFlag(AiRequestLogResponseGroup.Normal);
-        var needCleanResponse = !respGroupEnum.HasFlag(AiRequestLogResponseGroup.Verbose);
 
-        if (!result.Results.IsNullOrEmpty() && (needCleanRequest || needCleanResponse))
+        if (!result.Results.IsNullOrEmpty() && !respGroupEnum.HasFlag(AiRequestLogResponseGroup.Verbose))
         {
             foreach (var logItem in result.Results)
             {
-                logItem.RequestContext = needCleanRequest ? null : logItem.RequestContext;
-                logItem.Prompt = needCleanRequest ? null : logItem.Prompt;
-                logItem.Response = needCleanResponse ? null : logItem.Response;
+                logItem.RequestContext = null;
+                logItem.Prompt = null;
+                logItem.Response = null;
+                logItem.ErrorText = null;
             }
         }
 

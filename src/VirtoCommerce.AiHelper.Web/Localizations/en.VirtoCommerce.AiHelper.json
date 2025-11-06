@@ -16,11 +16,11 @@
   "settings": {
     "AiHelper": {
       "Enabled": {
-        "title": "AiHelper Enabled",
-        "description": "AiHelper Enabled setting"
+        "title": "AiHelper enabled",
+        "description": "AiHelper enabled setting"
       },
       "LogLevel": {
-        "title": "AiHelper logging lLevel",
+        "title": "AiHelper logging level",
         "description": "Set request history logging level"
       },
       "TextGenerationProvider": {

@@ -43,14 +43,14 @@ public static class ModuleConstants
                 Name = "AiHelper.LogLevel",
                 GroupName = "AiHelper|General",
                 ValueType = SettingValueType.ShortText,
-                AllowedValues = ["None", "Minimal", "Normal", "Verbose"],
+                AllowedValues = ["None", "Minimal", "Verbose"],
                 DefaultValue = "Minimal",
             };
 
             public static SettingDescriptor AiHelperTextGenerationProvider { get; } = new()
             {
                 Name = "AiHelper.TextGenerationProvider",
-                GroupName = "AiHelper|General",
+                GroupName = "AiHelper|General - Providers",
                 ValueType = SettingValueType.ShortText,
                 AllowedValues = [],
             };
@@ -58,7 +58,7 @@ public static class ModuleConstants
             public static SettingDescriptor AiHelperImageRecognitionProvider { get; } = new()
             {
                 Name = "AiHelper.ImageRecognitionProvider",
-                GroupName = "AiHelper|General",
+                GroupName = "AiHelper|General - Providers",
                 ValueType = SettingValueType.ShortText,
                 AllowedValues = [],
             };
@@ -66,7 +66,7 @@ public static class ModuleConstants
             public static SettingDescriptor AiHelperImageGenerationProvider { get; } = new()
             {
                 Name = "AiHelper.ImageGenerationProvider",
-                GroupName = "AiHelper|General",
+                GroupName = "AiHelper|General - Providers",
                 ValueType = SettingValueType.ShortText,
                 AllowedValues = [],
             };

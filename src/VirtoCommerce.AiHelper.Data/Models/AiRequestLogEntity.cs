@@ -25,9 +25,13 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
     [StringLength(128)]
     public string EntityId { get; set; }
 
+    public int RequestDuration { get; set; }
+    public bool IsSuccess { get; set; }
+
     public string RequestContext { get; set; }
     public string Prompt { get; set; }
     public string Response { get; set; }
+    public string ErrorText { get; set; }
 
     public AiRequestLog ToModel(AiRequestLog model)
     {
@@ -47,10 +51,13 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
         model.TaskType = TaskType;
         model.UserId = UserId;
         model.EntityId = EntityId;
+        model.RequestDuration = RequestDuration;
+        model.IsSuccess = IsSuccess;
 
         model.RequestContext = RequestContext;
         model.Prompt = Prompt;
         model.Response = Response;
+        model.ErrorText = ErrorText;
 
         return model;
     }
@@ -76,10 +83,13 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
         TaskType = model.TaskType;
         UserId = model.UserId;
         EntityId = model.EntityId;
+        RequestDuration = model.RequestDuration;
+        IsSuccess = model.IsSuccess;
 
         RequestContext = model.RequestContext;
         Prompt = model.Prompt;
         Response = model.Response;
+        ErrorText = model.ErrorText;
 
         return this;
     }
@@ -97,9 +107,12 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
         target.TaskType = TaskType;
         target.UserId = UserId;
         target.EntityId = EntityId;
+        target.RequestDuration = RequestDuration;
+        target.IsSuccess = IsSuccess;
 
         target.RequestContext = RequestContext;
         target.Prompt = Prompt;
         target.Response = Response;
+        target.ErrorText = ErrorText;
     }
 }
