@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "exports": {
+    "./aihelper": {
+      "import": "./dist/virtocommerce.aihelper.js",
+      "types": "./dist/types/virtocommerce.aihelper.d.ts"
+    },
+    "./virtocommerce.aihelper": {
+      "import": "./dist/virtocommerce.aihelper.js",
+      "types": "./dist/types/virtocommerce.aihelper.d.ts"
+    },
+    ".": {
+      "import": "./dist/virtocommerce.aihelper.js",
+      "types": "./dist/types/virtocommerce.aihelper.d.ts"
+    }
+  },
+  "apiClientGenerator": {
+    "version": "0.0.0",
+    "generatedAt": "2025-11-07T09:37:17.750Z"
+  },
+  "module": "./dist/virtocommerce.aihelper.js",
+  "types": "./dist/types/virtocommerce.aihelper.d.ts"
+}

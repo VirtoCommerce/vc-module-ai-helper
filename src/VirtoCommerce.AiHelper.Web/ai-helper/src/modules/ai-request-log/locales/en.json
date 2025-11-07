@@ -1,0 +1,89 @@
+{
+  "AI_REQUEST_LOG": {
+    "MENU": {
+      "TITLE": "AiRequestLogs"
+    },
+    "PAGES": {
+      "LIST": {
+        "TITLE": "AiRequestLogs",
+        "SEARCH": {
+          "PLACEHOLDER": "Search aiRequestLogs..."
+        },
+        "TOOLBAR": {
+          "REFRESH": "Refresh",
+          "ADD": "Add AiRequestLog",
+          "DELETE": "Delete selected"
+        },
+        "TABLE": {
+          "HEADER": {
+            "PROVIDER_NAME": "Provider",
+            "REQUEST_TYPE": "Request Type",
+            "TASK_TYPE": "Task Type",
+            "USER_ID": "User",
+            "ENTITY_ID": "Entity",
+            "REQUEST_DURATION": "Request Duration",
+            "IS_SUCCESS": "Success",
+            "CREATED_DATE": "Created"
+          },
+          "TOTALS": "{count} aiRequestLogs",
+          "FILTER": {
+            "STATUS": {
+              "TITLE": "Status",
+              "Active": "Active",
+              "Inactive": "Inactive",
+              "Pending": "Pending"
+            },
+            "DATE": {
+              "TITLE": "Date Range",
+              "START_DATE": "Start Date",
+              "END_DATE": "End Date"
+            },
+            "APPLY": "Apply",
+            "RESET": "Reset"
+          }
+        },
+        "EMPTY": {
+          "NO_ITEMS": "No aiRequestLogs yet",
+          "ADD": "Add AiRequestLog"
+        },
+        "NOT_FOUND": {
+          "EMPTY": "No aiRequestLogs found",
+          "RESET": "Reset search"
+        }
+      },
+      "DETAILS": {
+        "TITLE": "New AiRequestLog",
+        "TOOLBAR": {
+          "SAVE": "Save",
+          "DELETE": "Delete"
+        },
+        "FORM": {
+          "INFO": {
+            "TITLE": "Information",
+            "PROVIDER_NAME": "ProviderName",
+            "MODEL": "Model",
+            "REQUEST_TYPE": "RequestType",
+            "TASK_TYPE": "TaskType",
+            "USER": "User",
+            "ENTITY_ID": "EntityId",
+            "REQUEST_DURATION": "RequestDuration",
+            "IS_SUCCESS": "IsSuccess",
+            "REQUEST_CONTEXT": "RequestContext",
+            "PROMPT": "Prompt",
+            "RESPONSE": "Response",
+            "ERROR_TEXT": "ErrorText"
+          }
+        }
+      },
+      "ALERTS": {
+        "DELETE": "Are you sure you want to delete this aiRequestLog?",
+        "DELETE_SELECTED_CONFIRMATION": {
+          "MESSAGE": "Are you sure you want to delete {count} aiRequestLogs?",
+          "ALL": "all {totalCount}"
+        },
+        "CLOSE_CONFIRMATION": "You have unsaved changes. Are you sure you want to close?",
+        "NOT_VALID": "Please fill all required fields correctly."
+      }
+    }
+  }
+}
