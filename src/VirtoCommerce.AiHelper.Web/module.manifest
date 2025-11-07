@@ -34,7 +34,6 @@
     <app id="ai-helper-app">
       <title>AI Helper</title>
       <iconUrl>/apps/ai-helper-app/img/icons/favicon-32x32.png</iconUrl>
-      <contentPath>App/dist</contentPath>
       <supportEmbeddedMode>true</supportEmbeddedMode>
       <permission>ai-helper:access</permission>
     </app>
