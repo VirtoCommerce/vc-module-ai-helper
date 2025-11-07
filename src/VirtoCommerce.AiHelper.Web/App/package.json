@@ -1,6 +1,6 @@
 {
-  "name": "ai-helper",
-  "version": "0.0.0",
+  "name": "ai-helper-app",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "cross-env APP_ENV=development vite --force",

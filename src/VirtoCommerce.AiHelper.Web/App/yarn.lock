@@ -3858,9 +3858,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai-helper@workspace:.":
+"ai-helper-app@workspace:.":
   version: 0.0.0-use.local
-  resolution: "ai-helper@workspace:."
+  resolution: "ai-helper-app@workspace:."
   dependencies:
     "@commitlint/cli": "npm:^18.4.3"
     "@commitlint/config-conventional": "npm:^18.4.3"

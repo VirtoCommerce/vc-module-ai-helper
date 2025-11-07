@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
@@ -11,9 +11,13 @@
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\ai-helper-app\**" />
     <Compile Remove="dist\**" />
+    <Content Remove="Content\ai-helper-app\**" />
     <Content Remove="dist\**" />
+    <EmbeddedResource Remove="Content\ai-helper-app\**" />
     <EmbeddedResource Remove="dist\**" />
+    <None Remove="Content\ai-helper-app\**" />
     <None Remove="dist\**" />
   </ItemGroup>
   <ItemGroup>
