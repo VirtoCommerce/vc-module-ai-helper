@@ -29,17 +29,20 @@ public class AiHelperCallEventHandler : IEventHandler<AiHelperCallEvent>
             var logLevel = await _settingsManager.GetValueAsync<string>(Settings.General.AiHelperLogLevel);
             var respGroupEnum = EnumUtility.SafeParseFlags(logLevel, AiRequestLogResponseGroup.None);
 
-            var aiRequestLog = message.AiRequestLog;
-
-            if (!respGroupEnum.HasFlag(AiRequestLogResponseGroup.Verbose))
+            if (respGroupEnum != AiRequestLogResponseGroup.None)
             {
-                aiRequestLog.RequestContext = null;
-                aiRequestLog.Prompt = null;
-                aiRequestLog.Response = null;
-                aiRequestLog.ErrorText = null;
-            }
+                var aiRequestLog = message.AiRequestLog;
 
-            await _aiRequestLogService.SaveRequestLog(aiRequestLog);
+                if (!respGroupEnum.HasFlag(AiRequestLogResponseGroup.Verbose))
+                {
+                    aiRequestLog.RequestContext = null;
+                    aiRequestLog.Prompt = null;
+                    aiRequestLog.Response = null;
+                    aiRequestLog.ErrorText = null;
+                }
+
+                await _aiRequestLogService.SaveRequestLog(aiRequestLog);
+            }
         }
     }
 }
