@@ -28,6 +28,15 @@
 
   <releaseNotes>First version.</releaseNotes>
   <copyright>Copyright © 2025 VirtoCommerce. All rights reserved</copyright>
-  <tags>VirtoCommerce AI helper module</tags>
+  <tags>VirtoCommerce AI Helper module</tags>
   <useFullTypeNameInSwagger>false</useFullTypeNameInSwagger>
+  <apps>
+    <app id="ai-helper-app">
+      <title>AI Helper</title>
+      <iconUrl>/apps/ai-helper-app/img/icons/favicon-32x32.png</iconUrl>
+      <contentPath>App/dist</contentPath>
+      <supportEmbeddedMode>true</supportEmbeddedMode>
+      <permission>ai-helper:access</permission>
+    </app>
+  </apps>
 </module>
