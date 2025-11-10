@@ -23,6 +23,12 @@ export const routes: RouteRecordRaw[] = [
         component: Dashboard,
       },
     ],
+    redirect: (to) => {
+      if (to.name === "App") {
+        return { path: "/ai-request-logs", params: to.params };
+      }
+      return to.path;
+    },
   },
   {
     name: "Login",
