@@ -15,14 +15,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       root: true,
     },
-    children: [
-      {
-        name: "Dashboard",
-        path: "",
-        alias: `/`,
-        component: Dashboard,
-      },
-    ],
+    children: [],
     redirect: (to) => {
       if (to.name === "App") {
         return { path: "/ai-request-logs", params: to.params };
