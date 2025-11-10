@@ -95,14 +95,17 @@
         </div>
       </template>
 
-      <!-- Override column template example
-      <template #item_name="itemData">
+      <template #item_requestDuration="itemData">
         <div class="tw-truncate">
-          {{ itemData.item.name }}
+          {{
+            itemData.item.requestDuration && itemData.item.requestDuration < 1000
+              ? `${itemData.item.requestDuration} ms`
+              : `${Math.round(itemData.item.requestDuration ?? 0 / 1000)} s`
+          }}
         </div>
       </template>
 
-      Status column template example
+      <!-- Status column template example
       <template #item_isActive="itemData">
         <VcStatusIcon :status="itemData.item.isActive" />
       </template> -->
