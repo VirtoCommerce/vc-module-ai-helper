@@ -100,7 +100,7 @@
           {{
             itemData.item.requestDuration && itemData.item.requestDuration < 1000
               ? `${itemData.item.requestDuration} ms`
-              : `${Math.round(itemData.item.requestDuration ?? 0 / 1000)} s`
+              : `${Math.round((itemData.item.requestDuration ?? 0) / 1000)} s`
           }}
         </div>
       </template>
