@@ -18,12 +18,12 @@ public class AiRequestLogSearchService : SearchService<AiRequestLogSearchCriteri
     IAiRequestLogSearchService
 {
     public AiRequestLogSearchService(
-    Func<IAiHelperRepository> repositoryFactory,
-    IPlatformMemoryCache platformMemoryCache,
-    IAiRequestLogService crudService,
-    IOptions<CrudOptions> crudOptions
+        Func<IAiHelperRepository> repositoryFactory,
+        IPlatformMemoryCache platformMemoryCache,
+        IAiRequestLogService crudService,
+        IOptions<CrudOptions> crudOptions
     )
-    : base(repositoryFactory, platformMemoryCache, crudService, crudOptions)
+        : base(repositoryFactory, platformMemoryCache, crudService, crudOptions)
     {
     }
 
@@ -31,10 +31,41 @@ public class AiRequestLogSearchService : SearchService<AiRequestLogSearchCriteri
     {
         var query = ((IAiHelperRepository)repository).AiRequestLogs;
 
-        //if (!string.IsNullOrEmpty(criteria.AttributeKey))
-        //{
-        //    query = query.Where(x => x.AttributeKey.StartsWith(criteria.AttributeKey));
-        //}
+        if (!string.IsNullOrEmpty(criteria.ProviderName))
+        {
+            query = query.Where(x => x.ProviderName == criteria.ProviderName);
+        }
+        if (!string.IsNullOrEmpty(criteria.RequestType))
+        {
+            query = query.Where(x => x.RequestType == criteria.RequestType);
+        }
+        if (!string.IsNullOrEmpty(criteria.TaskType))
+        {
+            query = query.Where(x => x.TaskType == criteria.TaskType);
+        }
+        if (criteria.IsSuccess.HasValue)
+        {
+            query = query.Where(x => x.IsSuccess == criteria.IsSuccess.Value);
+        }
+        if (!string.IsNullOrEmpty(criteria.UserId))
+        {
+            query = query.Where(x => x.UserId == criteria.UserId);
+        }
+        if (!string.IsNullOrEmpty(criteria.EntityId))
+        {
+            query = query.Where(x => x.EntityId == criteria.EntityId);
+        }
+        if (!string.IsNullOrEmpty(criteria.Keyword))
+        {
+            query = query.Where(x => x.ProviderName.Contains(criteria.Keyword) ||
+                x.RequestType.Contains(criteria.Keyword) ||
+                x.TaskType.Contains(criteria.Keyword) ||
+                x.UserId.Contains(criteria.Keyword) ||
+                x.EntityId.Contains(criteria.Keyword) ||
+                x.Prompt.Contains(criteria.Keyword) ||
+                x.Response.Contains(criteria.Keyword) ||
+                x.ErrorText.Contains(criteria.Keyword));
+        }
 
         return query;
     }

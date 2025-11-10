@@ -8,6 +8,14 @@ public class SearchAiRequestLogQuery : AiRequestLogSearchCriteria, IQuery<AiRequ
     {
         var criteria = ExType<AiRequestLogSearchCriteria>.New();
 
+        criteria.ProviderName = ProviderName;
+        criteria.RequestType = RequestType;
+        criteria.TaskType = TaskType;
+        criteria.IsSuccess = IsSuccess;
+        criteria.UserId = UserId;
+        criteria.EntityId = EntityId;
+
+        criteria.Keyword = Keyword;
         criteria.ResponseGroup = ResponseGroup;
         criteria.ObjectIds = ObjectIds;
         criteria.Take = Take;
