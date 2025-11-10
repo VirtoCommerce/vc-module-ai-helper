@@ -5,10 +5,10 @@ import { useI18n } from "vue-i18n";
 import { ISearchAiRequestLogQuery, SearchAiRequestLogQuery, IAiRequestLog, AiRequestLogSearchResult, AiHelperLogClient } from "../../../api_client/virtocommerce.aihelper";
 
 interface FilterState {
-  status: string[];
+  isSuccess?: boolean;
   startDate?: string;
   endDate?: string;
-  [key: string]: string[] | string | undefined;
+  [key: string]: string[] | string | boolean | undefined;
 }
 
 export interface IUseAiRequestLogList {
@@ -38,11 +38,9 @@ export interface UseAiRequestLogListOptions {
   sort?: string;
 }
 
-// Example status enum - customize for your entity
-enum AiRequestLogStatus {
-  Active = "Active",
-  Inactive = "Inactive",
-  Pending = "Pending",
+export enum AiRequestLogStatus {
+  Success = "Success",
+  Failed = "Failed",
 }
 
 export function useAiRequestLogList(options?: UseAiRequestLogListOptions): IUseAiRequestLogList {
@@ -66,69 +64,62 @@ export function useAiRequestLogList(options?: UseAiRequestLogListOptions): IUseA
   );
 
   // Filter state with staged/applied architecture
-  const stagedFilters = ref<FilterState>({ status: [] });
-  const appliedFilters = ref<FilterState>({ status: [] });
+  const stagedFilters = ref<FilterState>({});
+  const appliedFilters = ref<FilterState>({});
 
   const hasFilterChanges = computed((): boolean => {
-    // Deep comparison of filter arrays and values
-    const stagedStatus = [...stagedFilters.value.status].sort();
-    const appliedStatus = [...appliedFilters.value.status].sort();
-
     return (
-      JSON.stringify(stagedStatus) !== JSON.stringify(appliedStatus) ||
-      stagedFilters.value.startDate !== appliedFilters.value.startDate ||
-      stagedFilters.value.endDate !== appliedFilters.value.endDate
+      stagedFilters.value?.isSuccess !== appliedFilters.value?.isSuccess ||
+      stagedFilters.value?.startDate !== appliedFilters.value?.startDate ||
+      stagedFilters.value?.endDate !== appliedFilters.value?.endDate
     );
   });
 
   const hasFiltersApplied = computed((): boolean => {
-    return appliedFilters.value.status.length > 0 || !!appliedFilters.value.startDate || !!appliedFilters.value.endDate;
+    return appliedFilters.value?.isSuccess || !!appliedFilters.value?.startDate || !!appliedFilters.value?.endDate;
   });
 
   const activeFilterCount = computed((): number => {
     let count = 0;
-    if (appliedFilters.value.status.length > 0) count++;
-    if (appliedFilters.value.startDate) count++;
-    if (appliedFilters.value.endDate) count++;
+    if (appliedFilters.value?.isSuccess) count++;
+    if (appliedFilters.value?.startDate) count++;
+    if (appliedFilters.value?.endDate) count++;
     return count;
   });
 
   const toggleFilter = (filterType: keyof FilterState, value: string, checked: boolean) => {
-    if (filterType === "status") {
-      const currentFilters = [...stagedFilters.value.status];
-
-      if (checked) {
-        // For status, use radio behavior - replace all with single value
+    if (filterType === "isSuccess") {
+      if (value === "Success" && checked) {
         stagedFilters.value = {
           ...stagedFilters.value,
-          status: [value],
+          isSuccess: true,
         };
-      } else {
+      } else if (value === "Failed" && checked) {
         stagedFilters.value = {
           ...stagedFilters.value,
-          status: currentFilters.filter((item) => item !== value),
+          isSuccess: false,
         };
       }
-    } else if (filterType === "startDate" || filterType === "endDate") {
+    }else if (filterType === "startDate" || filterType === "endDate") {
       stagedFilters.value = {
         ...stagedFilters.value,
         [filterType]: value || undefined,
       };
     }
-  };
+  }
 
   const applyFilters = async () => {
     // Deep copy staged to applied
     appliedFilters.value = {
-      status: [...stagedFilters.value.status],
-      startDate: stagedFilters.value.startDate,
-      endDate: stagedFilters.value.endDate,
+      isSuccess: stagedFilters.value?.isSuccess,
+      startDate: stagedFilters.value?.startDate,
+      endDate: stagedFilters.value?.endDate,
     };
 
     // Convert to API query format with proper Date types
     const queryWithFilters = {
       ...searchQuery.value,
-      status: appliedFilters.value.status.length > 0 ? appliedFilters.value.status[0] : undefined,
+      isSuccess: appliedFilters.value.isSuccess,
       startDate: appliedFilters.value.startDate ? new Date(appliedFilters.value.startDate) : undefined,
       endDate: appliedFilters.value.endDate ? new Date(appliedFilters.value.endDate) : undefined,
       skip: 0, // Reset pagination
@@ -138,12 +129,12 @@ export function useAiRequestLogList(options?: UseAiRequestLogListOptions): IUseA
   };
 
   const resetFilters = async () => {
-    stagedFilters.value = { status: [] };
-    appliedFilters.value = { status: [] };
+    stagedFilters.value = { };
+    appliedFilters.value = { };
 
     const queryWithoutFilters = {
       ...searchQuery.value,
-      status: undefined,
+      isSuccess: undefined,
       startDate: undefined,
       endDate: undefined,
       skip: 0,
@@ -153,8 +144,8 @@ export function useAiRequestLogList(options?: UseAiRequestLogListOptions): IUseA
   };
 
   const resetSearch = async () => {
-    stagedFilters.value = { status: [] };
-    appliedFilters.value = { status: [] };
+    stagedFilters.value = { };
+    appliedFilters.value = { };
 
     const resetQuery = {
       take: pageSize,

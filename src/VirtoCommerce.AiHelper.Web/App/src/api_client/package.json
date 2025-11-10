@@ -20,8 +20,8 @@
     }
   },
   "apiClientGenerator": {
-    "version": "0.0.0",
-    "generatedAt": "2025-11-07T09:37:17.750Z"
+    "version": "0.1.0",
+    "generatedAt": "2025-11-10T14:22:02.501Z"
   },
   "module": "./dist/virtocommerce.aihelper.js",
   "types": "./dist/types/virtocommerce.aihelper.d.ts"

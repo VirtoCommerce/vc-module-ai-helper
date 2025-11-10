@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using VirtoCommerce.AiHelper.Core.Models;
 using VirtoCommerce.AiHelper.Data.Models;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Data.Infrastructure;
@@ -25,6 +26,20 @@ public class AiHelperRepository : DbContextRepositoryBase<AiHelperDbContext>, IA
             result = await AiRequestLogs.
                 Where(x => ids.Contains(x.Id)).ToArrayAsync();
         }
+
+        var respGroupEnum = EnumUtility.SafeParseFlags(responseGroup, AiRequestLogResponseGroup.None);
+
+        if (!result.IsNullOrEmpty() && !respGroupEnum.HasFlag(AiRequestLogResponseGroup.Verbose))
+        {
+            foreach (var logItem in result)
+            {
+                logItem.RequestContext = null;
+                logItem.Prompt = null;
+                logItem.Response = null;
+                logItem.ErrorText = null;
+            }
+        }
+
         return result;
     }
 

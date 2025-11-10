@@ -64,7 +64,7 @@ public class GenerateProductImageCommandHandler : ICommandHandler<GenerateProduc
         callEvent.AiRequestLog.Response = result.Result?.ToString();
         callEvent.AiRequestLog.IsSuccess = result.IsSuccess;
         callEvent.AiRequestLog.ErrorText = result.ErrorMessage;
-        callEvent.AiRequestLog.RequestDuration = Convert.ToInt32((DateTime.UtcNow - callStartTime).TotalSeconds);
+        callEvent.AiRequestLog.RequestDuration = Convert.ToInt32((DateTime.UtcNow - callStartTime).TotalMilliseconds);
         await _eventPublisher.Publish(callEvent);
 
         return result;

@@ -45,10 +45,10 @@
                 <VcRadioButton
                   v-for="status in statuses"
                   :key="status.value"
-                  :model-value="stagedFilters.status[0] || ''"
+                  :model-value="stagedFilters.isSuccess || ''"
                   :value="status.value"
                   :label="status.displayValue"
-                  @update:model-value="(value) => toggleFilter('status', String(value), true)"
+                  @update:model-value="(value) => toggleFilter('isSuccess', String(value), true)"
                 >
                 </VcRadioButton>
               </div>
@@ -80,7 +80,6 @@
           <div class="tw-flex tw-gap-2 tw-mt-4">
             <VcButton
               variant="primary"
-              :disabled="!hasFilterChanges"
               @click="applyFilters"
             >
               {{ $t("AI_REQUEST_LOG.PAGES.LIST.TABLE.FILTER.APPLY") }}
@@ -88,7 +87,6 @@
 
             <VcButton
               variant="secondary"
-              :disabled="!hasFiltersApplied"
               @click="resetFilters"
             >
               {{ $t("AI_REQUEST_LOG.PAGES.LIST.TABLE.FILTER.RESET") }}
@@ -189,6 +187,8 @@ const {
   resetFilters,
   resetSearch,
 } = useAiRequestLogList();
+
+//import { AiRequestLogStatus } from "../composables/useAiRequestLogList";
 
 const { markAsRead, setNotificationHandler } = useNotifications("AiRequestLogDeletedDomainEvent");
 const { sortExpression, handleSortChange } = useTableSort({
@@ -313,6 +313,7 @@ const tableColumns = ref<ITableColumns[]>([
     id: "isSuccess",
     field: "isSuccess",
     title: computed(() => t("AI_REQUEST_LOG.PAGES.LIST.TABLE.HEADER.IS_SUCCESS")),
+    type: "status-icon",
     sortable: true,
   },
   {

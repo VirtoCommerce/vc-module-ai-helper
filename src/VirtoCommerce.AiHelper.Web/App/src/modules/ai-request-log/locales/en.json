@@ -1,13 +1,13 @@
 {
   "AI_REQUEST_LOG": {
     "MENU": {
-      "TITLE": "AiRequestLogs"
+      "TITLE": "AI request logs"
     },
     "PAGES": {
       "LIST": {
-        "TITLE": "AiRequestLogs",
+        "TITLE": "AI request logs",
         "SEARCH": {
-          "PLACEHOLDER": "Search aiRequestLogs..."
+          "PLACEHOLDER": "Search AI request logs..."
         },
         "TOOLBAR": {
           "REFRESH": "Refresh",
@@ -25,13 +25,12 @@
             "IS_SUCCESS": "Success",
             "CREATED_DATE": "Created"
           },
-          "TOTALS": "{count} aiRequestLogs",
+          "TOTALS": "Total: {count}",
           "FILTER": {
             "STATUS": {
               "TITLE": "Status",
-              "Active": "Active",
-              "Inactive": "Inactive",
-              "Pending": "Pending"
+              "Success": "Success",
+              "Failed": "Failed"
             },
             "DATE": {
               "TITLE": "Date Range",
@@ -52,7 +51,7 @@
         }
       },
       "DETAILS": {
-        "TITLE": "New AiRequestLog",
+        "TITLE": "AI request log details",
         "TOOLBAR": {
           "SAVE": "Save",
           "DELETE": "Delete"
@@ -64,7 +63,7 @@
             "MODEL": "Model",
             "REQUEST_TYPE": "RequestType",
             "TASK_TYPE": "TaskType",
-            "USER": "User",
+            "USER_ID": "User",
             "ENTITY_ID": "EntityId",
             "REQUEST_DURATION": "RequestDuration",
             "IS_SUCCESS": "IsSuccess",

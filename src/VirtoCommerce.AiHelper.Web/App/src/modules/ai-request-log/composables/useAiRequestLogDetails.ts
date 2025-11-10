@@ -1,13 +1,14 @@
 import { computed, ref, ComputedRef, Ref, reactive } from "vue";
 import { useAsync, useApiClient, useModificationTracker, useLoading } from "@vc-shell/framework";
 
-import { IAiRequestLog, AiHelperLogClient } from "../../../api_client/virtocommerce.aihelper";
+import { IAiRequestLog, AiHelperLogClient, AiHelperCommonClient } from "../../../api_client/virtocommerce.aihelper";
 
 
 
 export interface IUseAiRequestLogDetails {
   item: Ref<IAiRequestLog>;
   loading: ComputedRef<boolean>;
+  logLevel: ComputedRef<string>;
   loadAiRequestLog: (id: string) => Promise<void>;
   saveAiRequestLog: (data?: IAiRequestLog) => Promise<IAiRequestLog | undefined>;
   deleteAiRequestLog: (id: string) => Promise<void>;
@@ -18,17 +19,27 @@ export interface IUseAiRequestLogDetails {
 }
 
 export function useAiRequestLogDetails(): IUseAiRequestLogDetails {
-  const { getApiClient } = useApiClient(AiHelperLogClient);
+  const { getApiClient: getAiHelperLogApiClient } = useApiClient(AiHelperLogClient);
+  const { getApiClient: getAiHelperCommonApiClient } = useApiClient(AiHelperCommonClient);
 
   const item = ref<IAiRequestLog>(reactive({} as IAiRequestLog));
+  const logLevelValue = ref<string>("minimal");
 
   // Use modification tracker - КАК В useOrderDetailsNew.ts
   const { currentValue, isModified, resetModificationState } = useModificationTracker(item);
 
+  const { action: loadLogLevel } = useAsync(async () => {
+    const commonApiClient = await getAiHelperCommonApiClient();
+    const settings = await commonApiClient.getSettings();
+    logLevelValue.value = settings.logLevel?.toLocaleLowerCase() ?? "minimal";
+  });
+
   const { action: loadAiRequestLog, loading: loadingAiRequestLog } = useAsync<string>(async (id) => {
     if (id) {
-      const apiClient = await getApiClient();
-      const data = await apiClient.getAiRequestLogById(id);
+      await loadLogLevel();
+
+      const logApiClient = await getAiHelperLogApiClient();
+      const data = await logApiClient.getAiRequestLogById(id, logLevelValue.value);
 
       currentValue.value = reactive(data);
       resetModificationState();
@@ -64,9 +75,12 @@ export function useAiRequestLogDetails(): IUseAiRequestLogDetails {
     // await apiClient.deleteAiRequestLog(id);
   });
 
+  const logLevel = computed(() => logLevelValue.value);
+
   return {
     item: currentValue, // ВАЖНО: возвращаем currentValue, а не item
     loading: useLoading(loadingAiRequestLog, savingAiRequestLog, deletingAiRequestLog),
+    logLevel,
     loadAiRequestLog,
     saveAiRequestLog,
     deleteAiRequestLog,

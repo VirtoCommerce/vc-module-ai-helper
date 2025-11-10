@@ -11,184 +11,117 @@
     @expand="$emit('expand:blade')"
     @collapse="$emit('collapse:blade')"
   >
+    <template #actions>
+      <div class="tw-flex tw-flex-row tw-items-center">
+        <div class="tw-ml-4">
+          <slot
+            name="status-badge"
+            :item="item"
+          >
+            <VcStatus :variant="item.isSuccess ? 'success' : 'danger'">
+              {{ item.isSuccess ? "Success" : "Failed" }}
+            </VcStatus>
+          </slot>
+        </div>
+      </div>
+    </template>
+
     <VcContainer class="tw-p-2">
       <VcRow class="tw-space-x-4">
         <VcCol :size="6">
           <!-- Main Form -->
           <div class="tw-space-y-4">
-            <Field
-              v-slot="{ field, errorMessage, handleChange, errors }"
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROVIDER_NAME')"
               :model-value="item.providerName"
-              name="providerName"
-            >
-              <VcInput
-                v-bind="field"
-                v-model="item.providerName"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROVIDER_NAME')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROVIDER_NAME_PLACEHOLDER')"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-            </Field>
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
 
-            <Field
-              v-slot="{ field, errorMessage, handleChange, errors }"
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.MODEL')"
               :model-value="item.model"
-              name="model"
-            >
-              <VcInput
-                v-bind="field"
-                v-model="item.model"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.MODEL')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.MODEL_PLACEHOLDER')"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-            </Field>
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
 
-            <Field
-              v-slot="{ field, errorMessage, handleChange, errors }"
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_TYPE')"
               :model-value="item.requestType"
-              name="requestType"
-            >
-              <VcInput
-                v-bind="field"
-                v-model="item.requestType"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_TYPE')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_TYPE_PLACEHOLDER')"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-            </Field>
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
 
-            <Field
-              v-slot="{ field, errorMessage, handleChange, errors }"
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.TASK_TYPE')"
               :model-value="item.taskType"
-              name="taskType"
-            >
-              <VcInput
-                v-bind="field"
-                v-model="item.taskType"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.TASK_TYPE')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.TASK_TYPE_PLACEHOLDER')"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-            </Field>
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
 
-            <Field
-              v-slot="{ errorMessage, handleChange, errors }"
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.USER_ID')"
               :model-value="item.userId"
-              name="userId"
-            >
-              <VcInput
-                v-model="item.userId"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.USER_ID')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.USER_ID_PLACEHOLDER')"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-              <!-- <VcSelect
-                v-model="item.userId"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.USER')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.USER_PLACEHOLDER')"
-                :options="[
-                  { value: 'id', label: 'id' },
-                  { value: 'name', label: 'name' },
-                ]"
-                option-value="value"
-                option-label="label"
-                searchable
-                :clearable="false"
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              /> -->
-            </Field>
-
-            <Field
-              v-slot="{ field, errorMessage, handleChange, errors }"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ENTITY_ID')"
               :model-value="item.entityId"
-              name="entityId"
-            >
-              <VcInput
-                v-bind="field"
-                v-model="item.entityId"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ENTITY_ID')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ENTITY_ID_PLACEHOLDER')"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-            </Field>
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
 
-            <Field
-              v-slot="{ field, errorMessage, handleChange, errors }"
+            <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_DURATION')"
-              :model-value="item.requestDuration"
-              name="requestDuration"
-            >
-              <VcInput
-                v-bind="field"
-                v-model="item.requestDuration"
-                :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_DURATION')"
-                :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_DURATION_PLACEHOLDER')"
-                type="number"
-                clearable
-                :error="!!errors.length"
-                :error-message="errorMessage"
-                @update:model-value="handleChange"
-              />
-            </Field>
-
-            <VcCheckbox
-              :model-value="item.isSuccess ?? false"
-              :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.IS_SUCCESS')"
+              :model-value="formattedDuration"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
             />
 
-            <VcTextarea
-              v-model="item.requestContext"
+            <hr
+              v-if="logLevel === 'verbose'"
+              class="tw-my-4"
+            />
+            <VcField
+              v-if="logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_CONTEXT')"
-              :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_CONTEXT_PLACEHOLDER')"
-              clearable
+              :model-value="item.requestContext"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+              copyable
             />
-
-            <VcTextarea
-              v-model="item.prompt"
+            <hr
+              v-if="logLevel === 'verbose'"
+              class="tw-my-4"
+            />
+            <VcField
+              v-if="logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROMPT')"
-              :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROMPT_PLACEHOLDER')"
-              clearable
+              :model-value="item.prompt"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+              copyable
             />
-
-            <VcTextarea
-              v-model="item.response"
+            <hr
+              v-if="logLevel === 'verbose'"
+              class="tw-my-4"
+            />
+            <VcField
+              v-if="item.isSuccess && logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.RESPONSE')"
-              :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.RESPONSE_PLACEHOLDER')"
-              clearable
+              :model-value="item.response"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+              copyable
             />
-
-            <VcTextarea
-              v-model="item.errorText"
+            <VcField
+              v-if="!item.isSuccess && logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ERROR_TEXT')"
-              :placeholder="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ERROR_TEXT_PLACEHOLDER')"
-              clearable
+              :model-value="item.errorText"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+              copyable
             />
           </div>
         </VcCol>
@@ -236,8 +169,7 @@ const { onBeforeClose } = useBladeNavigation();
 const { showConfirmation, showInfo } = usePopup();
 const { meta } = useForm({ validateOnMount: false });
 
-const { item, loading, loadAiRequestLog, saveAiRequestLog, deleteAiRequestLog, isModified, resetModificationState } =
-  useAiRequestLogDetails();
+const { item, loading, loadAiRequestLog, logLevel, isModified, resetModificationState } = useAiRequestLogDetails();
 
 const bladeTitle = computed(() => {
   return t("AI_REQUEST_LOG.PAGES.DETAILS.TITLE");
@@ -246,6 +178,15 @@ const bladeTitle = computed(() => {
 const createdDate = computed(() => {
   const date = new Date(item.value?.createdDate ?? "");
   return moment(date).format("L LT");
+});
+
+const formattedDuration = computed(() => {
+  const duration = item.value?.requestDuration ?? 0;
+  if (duration < 1000) {
+    return `${duration} ms`;
+  } else {
+    return `${Math.round(duration / 1000)} s`;
+  }
 });
 
 const bladeToolbar = computed((): IBladeToolbar[] => [

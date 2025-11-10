@@ -857,6 +857,12 @@ export interface IGeneratePropertiesCommand {
 }
 
 export class SearchAiRequestLogQuery implements ISearchAiRequestLogQuery {
+    providerName?: string | undefined;
+    requestType?: string | undefined;
+    taskType?: string | undefined;
+    isSuccess?: boolean | undefined;
+    userId?: string | undefined;
+    entityId?: string | undefined;
     responseGroup?: string | undefined;
     objectType?: string | undefined;
     objectTypes?: string[] | undefined;
@@ -880,6 +886,12 @@ export class SearchAiRequestLogQuery implements ISearchAiRequestLogQuery {
 
     init(_data?: any) {
         if (_data) {
+            this.providerName = _data["providerName"];
+            this.requestType = _data["requestType"];
+            this.taskType = _data["taskType"];
+            this.isSuccess = _data["isSuccess"];
+            this.userId = _data["userId"];
+            this.entityId = _data["entityId"];
             this.responseGroup = _data["responseGroup"];
             this.objectType = _data["objectType"];
             if (Array.isArray(_data["objectTypes"])) {
@@ -915,6 +927,12 @@ export class SearchAiRequestLogQuery implements ISearchAiRequestLogQuery {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["providerName"] = this.providerName;
+        data["requestType"] = this.requestType;
+        data["taskType"] = this.taskType;
+        data["isSuccess"] = this.isSuccess;
+        data["userId"] = this.userId;
+        data["entityId"] = this.entityId;
         data["responseGroup"] = this.responseGroup;
         data["objectType"] = this.objectType;
         if (Array.isArray(this.objectTypes)) {
@@ -943,6 +961,12 @@ export class SearchAiRequestLogQuery implements ISearchAiRequestLogQuery {
 }
 
 export interface ISearchAiRequestLogQuery {
+    providerName?: string | undefined;
+    requestType?: string | undefined;
+    taskType?: string | undefined;
+    isSuccess?: boolean | undefined;
+    userId?: string | undefined;
+    entityId?: string | undefined;
     responseGroup?: string | undefined;
     objectType?: string | undefined;
     objectTypes?: string[] | undefined;
