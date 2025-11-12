@@ -83,45 +83,69 @@
               v-if="logLevel === 'verbose'"
               class="tw-my-4"
             />
+            <VcButton
+              v-if="logLevel === 'verbose'"
+              :icon="copyIconRequest"
+              icon-size="m"
+              class="tw-float-right -tw-mt-10"
+              text
+              @click="copy(item.requestContext, 'request')"
+            ></VcButton>
             <VcField
               v-if="logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_CONTEXT')"
               :model-value="item.requestContext"
-              orientation="horizontal"
-              :aspect-ratio="[1, 3]"
-              copyable
+              orientation="vertical"
             />
             <hr
               v-if="logLevel === 'verbose'"
               class="tw-my-4"
             />
+            <VcButton
+              v-if="logLevel === 'verbose'"
+              :icon="copyIconPrompt"
+              icon-size="m"
+              class="tw-float-right -tw-mt-10"
+              text
+              @click="copy(item.prompt, 'prompt')"
+            ></VcButton>
             <VcField
               v-if="logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROMPT')"
               :model-value="item.prompt"
-              orientation="horizontal"
-              :aspect-ratio="[1, 3]"
-              copyable
+              orientation="vertical"
             />
             <hr
               v-if="logLevel === 'verbose'"
               class="tw-my-4"
             />
+            <VcButton
+              v-if="item.isSuccess && logLevel === 'verbose'"
+              :icon="copyIconResponse"
+              icon-size="m"
+              class="tw-float-right -tw-mt-10"
+              text
+              @click="copy(item.response, 'response')"
+            ></VcButton>
             <VcField
               v-if="item.isSuccess && logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.RESPONSE')"
               :model-value="item.response"
-              orientation="horizontal"
-              :aspect-ratio="[1, 3]"
-              copyable
+              orientation="vertical"
             />
+            <VcButton
+              v-if="!item.isSuccess && logLevel === 'verbose'"
+              :icon="copyIconError"
+              icon-size="m"
+              class="tw-float-right -tw-mt-10"
+              text
+              @click="copy(item.errorText, 'error')"
+            ></VcButton>
             <VcField
               v-if="!item.isSuccess && logLevel === 'verbose'"
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ERROR_TEXT')"
               :model-value="item.errorText"
-              orientation="horizontal"
-              :aspect-ratio="[1, 3]"
-              copyable
+              orientation="vertical"
             />
           </div>
         </VcCol>
@@ -131,7 +155,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, watch } from "vue";
+import { computed, onMounted, watch, ref, Ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { IBladeToolbar, IParentCallArgs, useBladeNavigation, useBeforeUnload, usePopup } from "@vc-shell/framework";
 import { useAiRequestLogDetails } from "../composables";
@@ -174,6 +198,30 @@ const { item, loading, loadAiRequestLog, logLevel, isModified, resetModification
 const bladeTitle = computed(() => {
   return t("AI_REQUEST_LOG.PAGES.DETAILS.TITLE");
 });
+
+const copyIconRequest = ref("material-content_copy");
+const copyIconPrompt = ref("material-content_copy");
+const copyIconResponse = ref("material-content_copy");
+const copyIconError = ref("material-content_copy");
+
+const iconRefs: Record<string, Ref<string>> = {
+  request: copyIconRequest,
+  prompt: copyIconPrompt,
+  response: copyIconResponse,
+  error: copyIconError,
+};
+
+function copy(value: string | undefined, iconKey: string) {
+  if (!value) return;
+  navigator.clipboard?.writeText(value);
+  const iconRef = iconRefs[iconKey];
+  if (iconRef) {
+    iconRef.value = "material-check";
+    setTimeout(() => {
+      iconRef.value = "material-content_copy";
+    }, 1000);
+  }
+}
 
 const createdDate = computed(() => {
   const date = new Date(item.value?.createdDate ?? "");
