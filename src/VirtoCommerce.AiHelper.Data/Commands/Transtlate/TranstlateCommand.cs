@@ -8,4 +8,5 @@ public class TranstlateCommand : ICommand<AiRequestResult>, IHasVirtoContext
     public string TargetLanguage { get; set; }
     public string UserId { get; set; }
     public string EntityId { get; set; }
+    public string EntityType { get; set; }
 }

@@ -25,6 +25,9 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
     [StringLength(128)]
     public string EntityId { get; set; }
 
+    [StringLength(128)]
+    public string EntityType { get; set; }
+
     public int RequestDuration { get; set; }
     public bool IsSuccess { get; set; }
 
@@ -51,6 +54,7 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
         model.TaskType = TaskType;
         model.UserId = UserId;
         model.EntityId = EntityId;
+        model.EntityType = EntityType;
         model.RequestDuration = RequestDuration;
         model.IsSuccess = IsSuccess;
 
@@ -83,6 +87,7 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
         TaskType = model.TaskType;
         UserId = model.UserId;
         EntityId = model.EntityId;
+        EntityType = model.EntityType;
         RequestDuration = model.RequestDuration;
         IsSuccess = model.IsSuccess;
 
@@ -107,6 +112,7 @@ public class AiRequestLogEntity : AuditableEntity, IDataEntity<AiRequestLogEntit
         target.TaskType = TaskType;
         target.UserId = UserId;
         target.EntityId = EntityId;
+        target.EntityType = EntityType;
         target.RequestDuration = RequestDuration;
         target.IsSuccess = IsSuccess;
 

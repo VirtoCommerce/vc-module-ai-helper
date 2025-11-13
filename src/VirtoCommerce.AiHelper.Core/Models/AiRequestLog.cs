@@ -11,6 +11,7 @@ public class AiRequestLog : AuditableEntity, ICloneable
 
     public string UserId { get; set; }
     public string EntityId { get; set; }
+    public string EntityType { get; set; }
     public int RequestDuration { get; set; }
     public bool IsSuccess { get; set; }
 

@@ -40,6 +40,10 @@ namespace VirtoCommerce.AiHelper.Data.PostgreSql.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
+                    b.Property<string>("EntityType")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
                     b.Property<string>("ErrorText")
                         .HasColumnType("text");
 

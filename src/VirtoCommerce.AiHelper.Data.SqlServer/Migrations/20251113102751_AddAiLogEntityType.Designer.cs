@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VirtoCommerce.AiHelper.Data.Repositories;
 
@@ -11,9 +12,11 @@ using VirtoCommerce.AiHelper.Data.Repositories;
 namespace VirtoCommerce.AiHelper.Data.SqlServer.Migrations
 {
     [DbContext(typeof(AiHelperDbContext))]
-    partial class AiHelperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251113102751_AddAiLogEntityType")]
+    partial class AddAiLogEntityType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

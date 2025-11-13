@@ -40,6 +40,7 @@ public class GenerateProductImageCommandHandler : ICommandHandler<GenerateProduc
         //callEvent.AiRequestLog.Model = ???;
         callEvent.AiRequestLog.UserId = request.UserId;
         callEvent.AiRequestLog.EntityId = request.EntityId;
+        callEvent.AiRequestLog.EntityType = request.EntityType;
         callEvent.AiRequestLog.RequestContext = JsonConvert.SerializeObject(request);
         var callStartTime = DateTime.UtcNow;
 

@@ -40,6 +40,7 @@ public class GenerateDescriptionCommandHandler : ICommandHandler<GenerateDescrip
         callEvent.AiRequestLog.TaskType = nameof(GenerateDescriptionCommand);
         callEvent.AiRequestLog.UserId = request.UserId;
         callEvent.AiRequestLog.EntityId = request.EntityId;
+        callEvent.AiRequestLog.EntityType = request.EntityType;
         callEvent.AiRequestLog.RequestContext = JsonConvert.SerializeObject(request);
         var callStartTime = DateTime.UtcNow;
 
