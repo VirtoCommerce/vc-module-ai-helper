@@ -157,6 +157,7 @@
               v-if="logLevel === 'verbose'"
               :items="accordionItems"
               :collapsed-height="80"
+              :max-expanded-height="300"
               :multiple="true"
               variant="default"
             />
