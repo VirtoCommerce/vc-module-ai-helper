@@ -85,7 +85,7 @@
               :aspect-ratio="[1, 3]"
             />
 
-            <hr
+            <!--<hr
               v-if="logLevel === 'verbose'"
               class="tw-my-4"
             />
@@ -152,6 +152,13 @@
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ERROR_TEXT')"
               :model-value="item.errorText"
               orientation="vertical"
+            />-->
+            <VcAccordion
+              v-if="logLevel === 'verbose'"
+              :items="accordionItems"
+              :collapsed-height="80"
+              :multiple="true"
+              variant="default"
             />
           </div>
         </VcCol>
@@ -228,6 +235,15 @@ function copy(value: string | undefined, iconKey: string) {
     }, 1000);
   }
 }
+
+const accordionItems = computed(() => {
+  return [
+    { id: 1, title: t("AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_CONTEXT"), content: item.value.requestContext },
+    { id: 2, title: t("AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.PROMPT"), content: item.value.prompt },
+    { id: 3, title: t("AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.RESPONSE"), content: item.value.response },
+    { id: 4, title: t("AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ERROR_TEXT"), content: item.value.errorText },
+  ];
+});
 
 const createdDate = computed(() => {
   const date = new Date(item.value?.createdDate ?? "");
