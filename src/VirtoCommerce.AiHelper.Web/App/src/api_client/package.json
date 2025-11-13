@@ -21,7 +21,7 @@
   },
   "apiClientGenerator": {
     "version": "0.1.0",
-    "generatedAt": "2025-11-10T14:22:02.501Z"
+    "generatedAt": "2025-11-13T11:25:30.512Z"
   },
   "module": "./dist/virtocommerce.aihelper.js",
   "types": "./dist/types/virtocommerce.aihelper.d.ts"

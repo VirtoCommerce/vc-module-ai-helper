@@ -531,6 +531,7 @@ export class AiRequestLog implements IAiRequestLog {
     taskType?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
     requestDuration?: number;
     isSuccess?: boolean;
     requestContext?: string | undefined;
@@ -560,6 +561,7 @@ export class AiRequestLog implements IAiRequestLog {
             this.taskType = _data["taskType"];
             this.userId = _data["userId"];
             this.entityId = _data["entityId"];
+            this.entityType = _data["entityType"];
             this.requestDuration = _data["requestDuration"];
             this.isSuccess = _data["isSuccess"];
             this.requestContext = _data["requestContext"];
@@ -589,6 +591,7 @@ export class AiRequestLog implements IAiRequestLog {
         data["taskType"] = this.taskType;
         data["userId"] = this.userId;
         data["entityId"] = this.entityId;
+        data["entityType"] = this.entityType;
         data["requestDuration"] = this.requestDuration;
         data["isSuccess"] = this.isSuccess;
         data["requestContext"] = this.requestContext;
@@ -611,6 +614,7 @@ export interface IAiRequestLog {
     taskType?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
     requestDuration?: number;
     isSuccess?: boolean;
     requestContext?: string | undefined;
@@ -721,6 +725,7 @@ export class GenerateDescriptionCommand implements IGenerateDescriptionCommand {
     targetLanguage?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 
     constructor(data?: IGenerateDescriptionCommand) {
         if (data) {
@@ -737,6 +742,7 @@ export class GenerateDescriptionCommand implements IGenerateDescriptionCommand {
             this.targetLanguage = _data["targetLanguage"];
             this.userId = _data["userId"];
             this.entityId = _data["entityId"];
+            this.entityType = _data["entityType"];
         }
     }
 
@@ -753,6 +759,7 @@ export class GenerateDescriptionCommand implements IGenerateDescriptionCommand {
         data["targetLanguage"] = this.targetLanguage;
         data["userId"] = this.userId;
         data["entityId"] = this.entityId;
+        data["entityType"] = this.entityType;
         return data;
     }
 }
@@ -762,12 +769,14 @@ export interface IGenerateDescriptionCommand {
     targetLanguage?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 }
 
 export class GenerateProductImageCommand implements IGenerateProductImageCommand {
     product?: AiProductContract | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 
     constructor(data?: IGenerateProductImageCommand) {
         if (data) {
@@ -783,6 +792,7 @@ export class GenerateProductImageCommand implements IGenerateProductImageCommand
             this.product = _data["product"] ? AiProductContract.fromJS(_data["product"]) : undefined as any;
             this.userId = _data["userId"];
             this.entityId = _data["entityId"];
+            this.entityType = _data["entityType"];
         }
     }
 
@@ -798,6 +808,7 @@ export class GenerateProductImageCommand implements IGenerateProductImageCommand
         data["product"] = this.product ? this.product.toJSON() : undefined as any;
         data["userId"] = this.userId;
         data["entityId"] = this.entityId;
+        data["entityType"] = this.entityType;
         return data;
     }
 }
@@ -806,6 +817,7 @@ export interface IGenerateProductImageCommand {
     product?: AiProductContract | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 }
 
 export class GeneratePropertiesCommand implements IGeneratePropertiesCommand {
@@ -813,6 +825,7 @@ export class GeneratePropertiesCommand implements IGeneratePropertiesCommand {
     jsonTemplate?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 
     constructor(data?: IGeneratePropertiesCommand) {
         if (data) {
@@ -829,6 +842,7 @@ export class GeneratePropertiesCommand implements IGeneratePropertiesCommand {
             this.jsonTemplate = _data["jsonTemplate"];
             this.userId = _data["userId"];
             this.entityId = _data["entityId"];
+            this.entityType = _data["entityType"];
         }
     }
 
@@ -845,6 +859,7 @@ export class GeneratePropertiesCommand implements IGeneratePropertiesCommand {
         data["jsonTemplate"] = this.jsonTemplate;
         data["userId"] = this.userId;
         data["entityId"] = this.entityId;
+        data["entityType"] = this.entityType;
         return data;
     }
 }
@@ -854,6 +869,7 @@ export interface IGeneratePropertiesCommand {
     jsonTemplate?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 }
 
 export class SearchAiRequestLogQuery implements ISearchAiRequestLogQuery {
@@ -1030,6 +1046,7 @@ export class TranstlateCommand implements ITranstlateCommand {
     targetLanguage?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 
     constructor(data?: ITranstlateCommand) {
         if (data) {
@@ -1046,6 +1063,7 @@ export class TranstlateCommand implements ITranstlateCommand {
             this.targetLanguage = _data["targetLanguage"];
             this.userId = _data["userId"];
             this.entityId = _data["entityId"];
+            this.entityType = _data["entityType"];
         }
     }
 
@@ -1062,6 +1080,7 @@ export class TranstlateCommand implements ITranstlateCommand {
         data["targetLanguage"] = this.targetLanguage;
         data["userId"] = this.userId;
         data["entityId"] = this.entityId;
+        data["entityType"] = this.entityType;
         return data;
     }
 }
@@ -1071,6 +1090,7 @@ export interface ITranstlateCommand {
     targetLanguage?: string | undefined;
     userId?: string | undefined;
     entityId?: string | undefined;
+    entityType?: string | undefined;
 }
 
 export enum SortInfoSortDirection {

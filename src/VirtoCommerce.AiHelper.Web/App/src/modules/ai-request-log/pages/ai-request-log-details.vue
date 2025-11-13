@@ -71,6 +71,12 @@
               orientation="horizontal"
               :aspect-ratio="[1, 3]"
             />
+            <VcField
+              :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.ENTITY_TYPE')"
+              :model-value="item.entityType"
+              orientation="horizontal"
+              :aspect-ratio="[1, 3]"
+            />
 
             <VcField
               :label="$t('AI_REQUEST_LOG.PAGES.DETAILS.FORM.INFO.REQUEST_DURATION')"
