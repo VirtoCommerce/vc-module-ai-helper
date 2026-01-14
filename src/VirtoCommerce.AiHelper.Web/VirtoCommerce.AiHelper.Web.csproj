@@ -27,4 +27,11 @@
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data.SqlServer\VirtoCommerce.AiHelper.Data.SqlServer.csproj" />
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data\VirtoCommerce.AiHelper.Data.csproj" />
   </ItemGroup>
+
+  <!-- AI tool and agent definitions for VirtoCommerce.AI discovery -->
+  <ItemGroup>
+    <Content Include="ai\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
