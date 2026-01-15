@@ -27,19 +27,5 @@
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data.SqlServer\VirtoCommerce.AiHelper.Data.SqlServer.csproj" />
     <ProjectReference Include="..\VirtoCommerce.AiHelper.Data\VirtoCommerce.AiHelper.Data.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ai\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <AiFolder Include="ai\**" />
-  </ItemGroup>
-
-  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
-    <Copy SourceFiles="@(AiFolder)" DestinationFiles="$(PublishDir)\..\%(Identity)" />
-  </Target>
   
 </Project>
