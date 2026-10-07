@@ -74,14 +74,14 @@ jobs:
           fetch-depth: 0
 
       - name: Install VirtoCommerce.GlobalTool
-        uses: VirtoCommerce/vc-github-actions/setup-vcbuild@master
+        uses: VirtoCommerce/.github/actions/setup-vcbuild@v3.1000.1
 
       - name: Get Changelog
         id: changelog
-        uses: VirtoCommerce/vc-github-actions/changelog-generator@master
+        uses: VirtoCommerce/.github/actions/changelog-generator@v3.1000.1
 
       - name: Get Artifact Version
-        uses: VirtoCommerce/vc-github-actions/get-image-version@master
+        uses: VirtoCommerce/.github/actions/get-image-version@v3.1000.1
         id: artifact_ver
 
       - name: Set VERSION_SUFFIX variable
@@ -93,7 +93,7 @@ jobs:
           fi;
       - name: Add version suffix
         if: ${{ github.ref != 'refs/heads/master' }}
-        uses: VirtoCommerce/vc-github-actions/add-version-suffix@master
+        uses: VirtoCommerce/.github/actions/add-version-suffix@v3.1000.1
         with:
           versionSuffix: ${{ env.VERSION_SUFFIX }}
 
@@ -118,20 +118,20 @@ jobs:
 
       - name: Publish Nuget
         if: ${{ (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') && github.event_name != 'workflow_dispatch' }}
-        uses: VirtoCommerce/vc-github-actions/publish-nuget@master
+        uses: VirtoCommerce/.github/actions/publish-nuget@v3.1000.1
         env:
           NUGET_KEY: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
 
       - name: Publish to Blob
         if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' || github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/master') }}
         id: blobRelease
-        uses: VirtoCommerce/vc-github-actions/publish-blob-release@master
+        uses: VirtoCommerce/.github/actions/publish-blob-release@v3.1000.1
         with:
           blobSAS: ${{ secrets.BLOB_TOKEN }}
 
       - name: Add Jira link
         if: ${{ github.event_name == 'pull_request' }}
-        uses: VirtoCommerce/vc-github-actions/publish-jira-link@master
+        uses: VirtoCommerce/.github/actions/publish-jira-link@v3.1000.1
         with:
           branchName: ${{ github.head_ref }}
         env:
@@ -142,7 +142,7 @@ jobs:
         id: githubRelease
         with:
           changelog: ${{ steps.changelog.outputs.changelog }}
-        uses: VirtoCommerce/vc-github-actions/publish-github-release@master
+        uses: VirtoCommerce/.github/actions/publish-github-release@v3.1000.1
 
       - name: Set artifactUrl value
         id: artifactUrl
@@ -155,14 +155,14 @@ jobs:
 
       - name: Create deployment matrix
         if: ${{ github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master'}}
-        uses: VirtoCommerce/vc-github-actions/cloud-create-deploy-matrix@master
+        uses: VirtoCommerce/.github/actions/cloud-create-deploy-matrix@v3.1000.1
         id: deployment-matrix
         with:
           deployConfigPath: '.deployment/module/cloudDeploy.json'
           releaseBranch: 'non-existent'
 
       - name: Parse Jira Keys from All Commits
-        uses: VirtoCommerce/vc-github-actions/get-jira-keys@master
+        uses: VirtoCommerce/.github/actions/get-jira-keys@v3.1000.1
         if: always()
         id: jira_keys
         with:
@@ -198,7 +198,7 @@ jobs:
   deploy-cloud:
     if: ${{ (github.ref == 'refs/heads/master') || (github.ref == 'refs/heads/dev') }}
     needs: ci
-    uses: VirtoCommerce/.github/.github/workflows/deploy-cloud.yml@v3.800.42
+    uses: VirtoCommerce/.github/.github/workflows/deploy-cloud.yml@v3.1000.1
     with:
       releaseSource: module
       moduleId: ${{ needs.ci.outputs.moduleId }}
